@@ -1,4 +1,4 @@
-FROM kartoza/qgis-desktop:2.14.16
+FROM kartoza/qgis-desktop:3.0.3
 
 # Based off work by
 # Patrick Valsecchi<patrick.valsecchi@camptocamp.com>
@@ -18,6 +18,24 @@ ENV LANG C
 COPY build /build/scripts
 RUN /build/scripts/getDeps.sh && \
     /build/scripts/apache.sh
+
+#
+# Add any qgis server plugins we want to ship by default
+#
+
+# Add QGIS Server on the fly project creation support
+# see https://github.com/kartoza/otf-project
+
+# Not supported yet, needs python 3 
+
+#WORKDIR /opt/qgis-server/plugins
+#ARG OTF_PROJECT_TAG=master
+#RUN git clone --branch ${OTF_PROJECT_TAG} --depth 1 https://github.com/kartoza/otf-project.git
+
+#
+# End of server plugins section
+#
+
 
 # A few tunable variables for QGIS
 ENV QGIS_DEBUG 5
